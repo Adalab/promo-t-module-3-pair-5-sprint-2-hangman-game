@@ -1,4 +1,4 @@
-const Dummy = (numberOfErrors) => {
+const Dummy = ({numberOfErrors}) => {
 
 
     return ( 
