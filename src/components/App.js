@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../styles/main.scss';
+import Dummy from './Dummy';
+import Header from './Header';
 
 
 function App() {
@@ -51,32 +53,27 @@ fetch ('https://dev.adalab.es/api/random/word')
   }
 
   const renderErrorLetters = () => {
-    /*
-    return userLetters
-    .filter((eachLetter) => {
-      if (word.includes(eachLetter)){
-        return <li class="letter"></li>
-    
-      }
-    })
-   */
-  //cómo lo haríamos con filter? (agrega guión en letras falladas al agregar letra válida)
+  
+      /* opcion sin filter tb funciona. Con el filter sustituiríamos el if de este ejemplo:
       return userLetters.map((eachLetter, index) => {
-        if (word.includes(eachLetter)) {
-          return <li class="letter"></li>; // No se mostrará nada si la letra existe en la palabra
-        } else {
-          return <li key={index} className="letter">{eachLetter}</li>;
+        if (!word.includes(eachLetter)) {
+       
+        return <li key={index} className="letter">{eachLetter}</li>;
+
         }
       });
+      */
+     return userLetters
+      .filter((eachLetter) => !word.includes(eachLetter ))
+      .map((eachLetter, index) => <li className="letter" key={index}>{eachLetter}</li>)
     };
-    
+    console.log(numberOfErrors);
+    console.log(renderErrorLetters());
 
 
   return (
     <div className="page">
-      <header>
-        <h1 className="header__title">Juego del ahorcado</h1>
-      </header>
+      <Header/>
       <main className="main">
         <section>
           <div className="solution">
@@ -111,21 +108,8 @@ fetch ('https://dev.adalab.es/api/random/word')
           </form>
          {/* <button onClick={handleClick} className='sumbtn'>Incrementar</button>*/}
         </section>
-        <section className={`dummy error-${numberOfErrors}`} >
-          <span className="error-13 eye"></span>
-          <span className="error-12 eye"></span>
-          <span className="error-11 line"></span>
-          <span className="error-10 line"></span>
-          <span className="error-9 line"></span>
-          <span className="error-8 line"></span>
-          <span className="error-7 line"></span>
-          <span className="error-6 head"></span>
-          <span className="error-5 line"></span>
-          <span className="error-4 line"></span>
-          <span className="error-3 line"></span>
-          <span className="error-2 line"></span>
-          <span className="error-1 line"></span>
-        </section>
+        <Dummy numberOfErrors={numberOfErrors}/>
+        
       </main>
     </div>
   );
