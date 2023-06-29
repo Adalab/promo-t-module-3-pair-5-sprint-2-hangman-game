@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import '../styles/main.scss';
 import Dummy from './Dummy';
+import ErrorLetters from './ErrorLetters';
+import Form from './Form';
 import Header from './Header';
+import SolutionLetters from './SolutionLetters';
 
 
 function App() {
@@ -40,6 +43,7 @@ fetch ('https://dev.adalab.es/api/random/word')
     }
     
   };
+  /*
   const renderSolutionLetters = () => {
 
     const wordLetters = word.split('');
@@ -51,24 +55,7 @@ fetch ('https://dev.adalab.es/api/random/word')
       }
     });
   }
-
-  const renderErrorLetters = () => {
-  
-      /* opcion sin filter tb funciona. Con el filter sustituiríamos el if de este ejemplo:
-      return userLetters.map((eachLetter, index) => {
-        if (!word.includes(eachLetter)) {
-       
-        return <li key={index} className="letter">{eachLetter}</li>;
-
-        }
-      });
-      */
-     return userLetters
-      .filter((eachLetter) => !word.includes(eachLetter ))
-      .map((eachLetter, index) => <li className="letter" key={index}>{eachLetter}</li>)
-    };
-    console.log(numberOfErrors);
-    console.log(renderErrorLetters());
+*/
 
 
   return (
@@ -76,37 +63,9 @@ fetch ('https://dev.adalab.es/api/random/word')
       <Header/>
       <main className="main">
         <section>
-          <div className="solution">
-            <h2 className="title">Solución:</h2>
-            <ul className="letters">{renderSolutionLetters()}
-            </ul>
-          </div>
-          <div className="error">
-            <h2 className="title">Letras falladas:</h2>
-            <ul className="letters">{renderErrorLetters()}
-              {/*}
-              <li className="letter">f</li>
-              <li className="letter">q</li>
-              <li className="letter">h</li>
-              <li className="letter">p</li>
-              <li className="letter">x</li>
-             */}
-            </ul>
-          </div>
-          <form className="form">
-            <label className="title" htmlFor="last-letter">Escribe una letra:</label>
-            <input
-              autoComplete="off"
-              className="form__input"
-              maxLength="1"
-              type="text"
-              name="last-letter"
-              id="last-letter"
-              value={lastLetter}
-              onChange={handleLastLetter}
-            />
-          </form>
-         {/* <button onClick={handleClick} className='sumbtn'>Incrementar</button>*/}
+          <SolutionLetters word={word} userLetters={userLetters}/>
+          <ErrorLetters word={word} userLetters={userLetters}/>
+         <Form handleLastLetter={handleLastLetter}/>
         </section>
         <Dummy numberOfErrors={numberOfErrors}/>
         
